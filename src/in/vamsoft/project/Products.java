@@ -1,7 +1,7 @@
 package in.vamsoft.project;
 
 public class Products {
-	private int id;
+	private int productId;
 	private String productName;
 	private int quantity;
 	private float price;
@@ -9,17 +9,21 @@ public class Products {
 	
 	public Products(int id, String productName, int quantity, float price) {
 		super();
-		this.id = id;
+		this.productId = id;
 		this.productName = productName;
 		this.quantity = quantity;
 		this.price = price;
 	}
 	
+	public Products() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
-		return id;
+		return productId;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.productId = id;
 	}
 	public String getProductName() {
 		return productName;
