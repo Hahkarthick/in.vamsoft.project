@@ -42,8 +42,15 @@ public class Main {
 			String ptname=scanner.nextLine();
 			System.out.println("No of Quantity Avaliable="+ns.checkProducts(ptname));
 			break;
-		
-
+		case 4:
+			System.out.println("Enter Customer Name");
+			String prdname=scanner.nextLine();
+			System.out.println("Enter Product Name");
+			String product=scanner.nextLine();			
+			System.out.println("Enter Quantity");
+			int qty=scanner.nextInt();
+			ns.bookProduct(prdname, product, qty);
+			break;
 		default:
 			break;
 		}

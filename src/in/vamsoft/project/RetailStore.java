@@ -93,7 +93,6 @@ public class RetailStore {
 	
 	//Check Product
 	public int checkProducts(String productname) {
-		System.out.println("RetailStore.checkProducts()"+productname);
 		try(PreparedStatement preparedStatement=connection.prepareStatement("SELECT quantity, COUNT(CASE WHEN quantity > 0 THEN 1 END) AS NumberOfGreaterThan0 FROM product where productname=?")){
 			preparedStatement.setString(1, productname);
 			
@@ -118,15 +117,36 @@ public class RetailStore {
 //		Statement statement=null;
 //		ResultSet resultSet=null;
 //		PreparedStatement preparedStatement=null;
+		ResultSet resultSet2=null;
+		ResultSet resultSet3=null;
 		connection=DbConnectionUtil.getConnection();
 		try {
 			int prodCount=checkProducts(product);
 			if (prodCount>0) {
-				try(PreparedStatement prepareStatement=connection.prepareStatement("INSERT INTO `bookedProduct`(`bookingId`, `custName`, `products`, `quantity`) VALUES(?,?,?,?)");){
+				try(PreparedStatement preparedStatement2=connection.prepareStatement("SELECT price,quantity FROM product where productname=?");
+						PreparedStatement prepareStatement=connection.prepareStatement("INSERT INTO `bookedProduct`(`bookingId`, `custName`, `products`, `quantity`,`price`) VALUES(?,?,?,?,?)");
+								PreparedStatement prepareStatement3=connection.prepareStatement("Update product set price=? where productname=?");){
+					preparedStatement2.setString(1,product);
+					
+					
+					resultSet2=preparedStatement2.executeQuery();
+					int price=resultSet2.getInt(1);
+					int bqty=resultSet2.getInt(2);
+					
+					
+										
+					int updateQty=bqty-quantity;
+					prepareStatement3.setInt(1,updateQty);
+					prepareStatement3.setString(2,product);
+					
+					resultSet3=prepareStatement3.executeQuery();
+					
+					
 					prepareStatement.setInt(1, bookingId);
 					prepareStatement.setString(2,name);
 					prepareStatement.setString(3,product);
-					prepareStatement.setInt(4,quantity);					
+					prepareStatement.setInt(4,quantity);
+					prepareStatement.setFloat(5, price);
 					
 					int rowsUpdated=prepareStatement.executeUpdate();
 					return rowsUpdated>0?true:false;
@@ -138,17 +158,9 @@ public class RetailStore {
 
 			}
 		}
-		finally {
-			try {
-				preparedStatement.close();
-				resultSet.close();
-				statement.close();
-				connection.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return false;
+		catch (Exception e) {
+			// TODO: handle exception
+		} 		return false;
 		
 	}
 
