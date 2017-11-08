@@ -15,6 +15,13 @@ public class Customer {
 	}
 	
 	
+	public Customer( String customerName, String phoneNo) {
+		super();		
+		this.customerName = customerName;
+		this.phoneNo = phoneNo;
+	}
+	
+
 	public int getCustomerId() {
 		return customerId;
 	}

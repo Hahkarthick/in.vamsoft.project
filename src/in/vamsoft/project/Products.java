@@ -14,6 +14,12 @@ public class Products {
 		this.quantity = quantity;
 		this.price = price;
 	}
+	public Products(String productName, int quantity, float price) {
+		super();
+		this.productName = productName;
+		this.quantity = quantity;
+		this.price = price;
+	}
 	
 	public Products() {
 		// TODO Auto-generated constructor stub
