@@ -3,6 +3,7 @@
  */
 package in.vamsoft.project;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
@@ -41,6 +42,7 @@ class TestCase {
   void testAddCustomer() {
     
      boolean result= Test.addCustomer("Mani","98515744");
+     assertTrue(result);
     
   }
 
@@ -51,6 +53,7 @@ class TestCase {
   @Test
   void testAddProduct() {    
     boolean result= Test.addProduct("Ac", 10, 35000);
+    assertTrue(result);
   }
 
   /**
@@ -60,6 +63,8 @@ class TestCase {
   @Test
   void testCheckProducts() {
     int result= Test.checkProducts("AC");
+    //assertTrue(result);
+    assertNotNull(result);
   }
 
   /**
@@ -69,6 +74,7 @@ class TestCase {
   @Test
   void testBookProduct() {
     boolean result=Test.bookProduct(1, "AC", 2);
+    assertTrue(result);
   }
 
   /**
